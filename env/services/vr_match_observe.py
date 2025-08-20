@@ -39,6 +39,7 @@ def vehicle_ride_observe(vehicles, rides):
     return G
 
 
+
 def vr_whether_exist_edge(vehicle, ride):
     """
     Under vehicle-ride match graph,

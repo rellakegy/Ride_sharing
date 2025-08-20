@@ -81,8 +81,8 @@ class Ride(object):
             self.end_loc = r.end_loc
             pickup_time = cal_runtime(vehicle_loc, self.start_loc)
             delivery_time = cal_runtime(self.start_loc, self.end_loc)
-            self.pickup_time = datetime.timedelta(minutes=pickup_time)
-            self.delivery_time = datetime.timedelta(minutes=delivery_time)
+            self.pickup_time = pickup_time
+            self.delivery_time = delivery_time
             self.total_distance = cal_dis(vehicle_loc, self.start_loc) + cal_dis(self.start_loc, self.end_loc)
             self.revenue = DROP_FEE + SINGLE_DISTANCE_FEE * cal_dis(r.start_loc, r.end_loc) \
                         - COST_FEE * (cal_dis(vehicle_loc, r.start_loc) + cal_dis(r.start_loc, r.end_loc))
@@ -92,8 +92,8 @@ class Ride(object):
             r2 = self.requests[1]
             total_distance, pickup_time, delivery_time, self.start_loc, self.end_loc = \
                 find_shortest_path(vehicle_loc, r1.start_loc, r1.end_loc, r2.start_loc, r2.end_loc)
-            self.pickup_time = datetime.timedelta(minutes=pickup_time)
-            self.delivery_time = datetime.timedelta(minutes=delivery_time)
+            self.pickup_time = pickup_time
+            self.delivery_time = delivery_time
             self.total_distance = total_distance
             self.revenue = 2 * DROP_FEE + SHARE_DISTANCE_FEE * (delivery_time * SPEED) \
                         - COST_FEE * total_distance

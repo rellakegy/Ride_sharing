@@ -1,3 +1,4 @@
+import datetime
 import numpy as np
 
 
@@ -36,6 +37,7 @@ class Vehicle(object):
             self.set_idle()
         elif self.state == 'idle' and new_ride is not None:
             self.set_occupied(new_ride)
+    
 
     def set_idle(self):
         """
@@ -49,14 +51,12 @@ class Vehicle(object):
         self.ride_end_time = None
 
     def set_occupied(self, new_ride):
-        """
-        assign the new ride to the vehicle
-        """
-        assert self.ride is None
-        self.state = 'occupied'
         self.ride = new_ride
-
-        # find the shortest path
         self.ride.route_plan(self.loc)
-        self.ride_end_time = self.time + self.ride.pickup_time + self.ride.delivery_time
+        
+        # make sure pickup_time and delivery_time are in seconds
+        pickup_time = self.ride.pickup_time
+        delivery_time = self.ride.delivery_time
 
+        self.ride_end_time = self.time + pickup_time + delivery_time
+        self.state = 'occupied'
